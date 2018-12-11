@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
+import TextInput from './components/form/input';
 
 class App extends Component {
+	constructor(props, context) {
+		super(props, context);
+
+		this.state = {
+			data: {},
+		}
+	}
+
   render() {
   	const classForApp = 'ddd';
 
@@ -17,13 +26,11 @@ class App extends Component {
 
 						    <div className='form-group'>
 							    <label htmlFor='taskData'>Название напоминания</label>
-							    <input
-								    type='text'
-								    className='form-control'
-								    id='taskData'
-								    aria-describedby='taskDataHelp'
-								    placeholder='Занятие'
-							    />
+									<TextInput
+										name='taskName'
+										ariaDescribedby='taskDataHelp'
+										placeholder='Введите название'
+									/>
 							    <small id='taskDataHelp' className='form-text text-muted'>Введите название занятия на завтра.</small>
 						    </div>
 
