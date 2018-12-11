@@ -10,6 +10,7 @@ export default class TextInput extends Component {
 		placeholder: PropTypes.string, // плейсхолдер (подсказка)
 		ariaDescribedBy: PropTypes.string, // значение для подсказки внизу инпута
 		onChange: PropTypes.func, // функция обработчик события изменения содержимого инпута
+		readOnly: PropTypes.bool, //
 	};
 
 	static defaultProps = { // значение пропсов по умолчанию (если они не переданы в компонент)
@@ -22,14 +23,6 @@ export default class TextInput extends Component {
 
 	}
 
-	handleChange = (e) => { // обработчик события - нажатие клавиши
-		const { target } = e;
-		const { name } = target;
-		const value = target.type === 'checkbox' ? target.checked : target.value;
-		// if (target.type === 'checkbox') value = target.checked ;
-		// else value = target.value;
-	};
-
 	render() {
 		return (
 			<React.Fragment>
@@ -40,6 +33,8 @@ export default class TextInput extends Component {
 					name={ this.props.name }
 					aria-describedby={ this.props.ariaDescribedBy }
 					placeholder={ this.props.placeholder }
+					onChange={ this.props.onChange }
+					readOnly={ this.props.readOnly }
 				/>
 			</React.Fragment>
 		);

@@ -7,11 +7,29 @@ class App extends Component {
 
 		this.state = {
 			data: {},
+			errState: false,
 		}
 	}
 
+	handleChange = (e) => { // обработчик события - нажатие клавиши
+		const { target } = e;
+		const { name } = target;
+		const value = target.type === 'checkbox' ? target.checked : target.value;
+		// if (target.type === 'checkbox') value = target.checked ;
+		// else value = target.value;
+		this.setState({
+			data: { ...this.state.data, [name]: value },
+		});
+/*
+		const stateCopy = Object.assign({}, this.state);
+		stateCopy.data[name] = value;
+		this.setState(stateCopy);
+*/
+	};
+
   render() {
   	const classForApp = 'ddd';
+  	const inputName = 'taskName';
 
     return (
 	    <React.Fragment>
@@ -26,11 +44,14 @@ class App extends Component {
 
 						    <div className='form-group'>
 							    <label htmlFor='taskData'>Название напоминания</label>
-									<TextInput
-										name='taskName'
-										ariaDescribedby='taskDataHelp'
-										placeholder='Введите название'
-									/>
+							    <TextInput
+								    name={ inputName }
+								    ariaDescribedby='taskDataHelp'
+								    placeholder='Введите название'
+								    value={ this.state.data[inputName] || ''}
+								    onChange={ this.handleChange }
+							    />
+
 							    <small id='taskDataHelp' className='form-text text-muted'>Введите название занятия на завтра.</small>
 						    </div>
 
@@ -88,3 +109,8 @@ class App extends Component {
 }
 // sdfsdf
 export default App;
+
+/*
+
+
+ */
