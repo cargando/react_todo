@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import TaskNameInput from './components/form/task_name_input';
+import { TaskForm } from './components/task_form';
+import { TaskList } from './components/task_list';
 
 class App extends Component {
 	constructor(props, context) {
@@ -26,12 +27,11 @@ class App extends Component {
 		this.setState(stateCopy);
 */
 	};
-	calendarClick = (e) => {
-		console.log(e);
-		return null;
-	};
+
 
   render() {
+  	const ms = '';
+  	console.log('ms=', !!ms);
     return (
 	    <React.Fragment>
 		    <div className='container' style={ { marginTop: '40px' } }>
@@ -40,50 +40,10 @@ class App extends Component {
 			    </div>
 			    <br />
 			    <div className='row'>
-				    <div className='col-md-6'>
-					    <form id='form1' action=''>
-								<TaskNameInput
-									value={ this.state.data.taskName }
-							    name='taskName'
-							    placeholder='Название задачи'
-							    onChange={ this.handleChange }
-							    label='Введите название задачи'
-							    errHint='Введите название задачи для напоминания'
-								/>
-						    <TaskNameInput
-							    value={ this.state.data.remindDt }
-							    name='remindDt'
-							    placeholder='Напомнить'
-							    onChange={ null }
-							    label='Когда напомнить'
-							    errHint='Введите дату и время напоминания'
-							    calendarClick={ this.calendarClick }
-							    readOnly
-						    />
-						    <div className='form-group form-check'>
-							    <input
-								    type='checkbox'
-								    className='form-check-input'
-								    id='Check1'
-								    value='some data' />
-							    <label className='form-check-label' htmlFor='exampleCheck1'>Важно</label>
-						    </div>
-
-						    <button type='button' className='btn btn-primary' onClick={ null }>Add task</button>
-						    <button type='button' className='btn btn-light' onClick={ null }>Clear Form</button>
-
-					    </form>
-				    </div>
-				    <div className='col-md-6'>
-				      <div className='card' style={ { width: '100%' } }>
-					      some data
-				      </div>
-
-				    </div>
-				    { /* <TasksList listHeader='Список дел на завтра:' /> */ }
+				    <TaskForm />
+						<TaskList />
 			    </div>
 		    </div>
-
 	    </React.Fragment>
     );
   }
