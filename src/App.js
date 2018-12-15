@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TextInput from './components/form/input';
 
 class App extends Component {
 	constructor(props, context) {
@@ -42,18 +41,7 @@ class App extends Component {
 				    <div className='col-md-6'>
 					    <form id='form1' action=''>
 
-						    <div className='form-group'>
-							    <label htmlFor='taskData'>Название напоминания</label>
-							    <TextInput
-								    name={ inputName }
-								    ariaDescribedby='taskDataHelp'
-								    placeholder='Введите название'
-								    value={ this.state.data[inputName] || ''}
-								    onChange={ this.handleChange }
-							    />
 
-							    <small id='taskDataHelp' className='form-text text-muted'>Введите название занятия на завтра.</small>
-						    </div>
 
 						    <div className='form-group'>
 							    <label htmlFor='reminderData'>Когда напомнить</label>
