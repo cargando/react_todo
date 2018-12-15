@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TaskNameInput from './components/form/task_name_input';
 
 class App extends Component {
 	constructor(props, context) {
@@ -25,11 +26,12 @@ class App extends Component {
 		this.setState(stateCopy);
 */
 	};
+	calendarClick = (e) => {
+		console.log(e);
+		return null;
+	};
 
   render() {
-  	const classForApp = 'ddd';
-  	const inputName = 'taskName';
-
     return (
 	    <React.Fragment>
 		    <div className='container' style={ { marginTop: '40px' } }>
@@ -40,33 +42,24 @@ class App extends Component {
 			    <div className='row'>
 				    <div className='col-md-6'>
 					    <form id='form1' action=''>
-
-
-
-						    <div className='form-group'>
-							    <label htmlFor='reminderData'>Когда напомнить</label>
-							    <div className='input-group'>
-								    <div onClick={ null } className='input-group-prepend'>
-								      <span
-									      style={ {cursor: 'pointer !important' } }
-									      className='input-group-text'
-									      id='calendarOpener'
-								      >
-									      <i className='fa fa-calendar'></i>
-								      </span>
-								    </div>
-								    <input
-									    type='text'
-									    className='form-control'
-									    id='reminderData'
-									    aria-describedby='reminderDataHelp'
-									    placeholder='Напомнить'
-								    />
-							    </div>
-							    <small id='reminderDataHelp' className='form-text text-muted'>Введите дату и время напоминания.
-							    </small>
-						    </div>
-
+								<TaskNameInput
+									value={ this.state.data.taskName }
+							    name='taskName'
+							    placeholder='Название задачи'
+							    onChange={ this.handleChange }
+							    label='Введите название задачи'
+							    errHint='Введите название задачи для напоминания'
+								/>
+						    <TaskNameInput
+							    value={ this.state.data.remindDt }
+							    name='remindDt'
+							    placeholder='Напомнить'
+							    onChange={ null }
+							    label='Когда напомнить'
+							    errHint='Введите дату и время напоминания'
+							    calendarClick={ this.calendarClick }
+							    readOnly
+						    />
 						    <div className='form-group form-check'>
 							    <input
 								    type='checkbox'
