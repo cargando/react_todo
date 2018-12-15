@@ -1,0 +1,10 @@
+.delete_ico {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+
+}
+.delete_ico:hover {
+	color: #990000;
+	cursor: pointer;
+}

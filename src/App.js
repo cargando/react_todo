@@ -2,32 +2,52 @@ import React, { Component } from 'react';
 import { TaskForm } from './components/task_form';
 import { TaskList } from './components/task_list';
 
+const msItems = [
+	{
+		id: 23,
+		title: 'First Item',
+		date: '15.12.2018',
+	},
+	{
+		id: 11,
+		title: 'Seccond  Item',
+		date: '25.12.2018',
+	},
+	{
+		id: 16,
+		title: 'One more Item',
+		date: '31.12.2018',
+		urgent: true,
+	},
+];
+
 class App extends Component {
 	constructor(props, context) {
 		super(props, context);
 
 		this.state = {
-			data: {},
+			list: msItems,
 			errState: false,
 		}
 	}
 
-	handleChange = (e) => { // обработчик события - нажатие клавиши
-		const { target } = e;
-		const { name } = target;
-		const value = target.type === 'checkbox' ? target.checked : target.value;
-		// if (target.type === 'checkbox') value = target.checked ;
-		// else value = target.value;
-		this.setState({
-			data: { ...this.state.data, [name]: value },
-		});
-/*
-		const stateCopy = Object.assign({}, this.state);
-		stateCopy.data[name] = value;
-		this.setState(stateCopy);
-*/
+	handleAddItem = (newItem) => { // обработчик события - нажатие клавиши
+		// const list = this.state.list.slice();
+		// list.push(newItem);
+		// this.setState({ list });
+		this.setState(prevState => ({
+			list: prevState.list.push(newItem),
+		}));
 	};
 
+	handleDeleteItem = (id) => {
+		console.log('>> handleDeleteItem:', id);
+		this.setState(prevState => ({
+			list: prevState.list
+				.filter((item) => (item.id !== id)),
+		}),
+		);
+	};
 
   render() {
   	const ms = '';
@@ -40,8 +60,13 @@ class App extends Component {
 			    </div>
 			    <br />
 			    <div className='row'>
-				    <TaskForm />
-						<TaskList />
+				    <TaskForm
+				      handleAdd={ this.handleAddItem }
+				    />
+						<TaskList
+							dataList={ this.state.list }
+							handleDelete={ this.handleDeleteItem }
+						/>
 			    </div>
 		    </div>
 	    </React.Fragment>

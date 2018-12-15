@@ -6,7 +6,7 @@ import Button from '../form/button';
 
 export class TaskForm extends Component {
 	static propTypes = {
-
+		handleAdd: PropTypes.func, // метод добавления напоминания  в список
 	};
 
 	constructor(props, context) {
@@ -25,6 +25,12 @@ export class TaskForm extends Component {
 		this.setState({
 			data: { ...this.state.data, [name]: value },
 		});
+	};
+	handleAddLocal = () => {
+		// проверку данных на валидность
+		//  если что-то введено неверно, тогда вывод ошибки в консоль
+		// если все ОК, тогда формируем объект {...} и передаем его в this.props.handleAdd(...);
+		// ресет компонента формы (т.е. удаление всех данных из инпутов)
 	};
 
 	calendarClick = (e) => {
@@ -51,7 +57,6 @@ export class TaskForm extends Component {
 						label='Когда напомнить'
 						errHint='Введите дату и время напоминания'
 						calendarClick={ this.calendarClick }
-						readOnly
 					/>
 					<UrgentInput
 						name='urgent'
