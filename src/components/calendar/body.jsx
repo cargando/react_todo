@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import CalendarCell  from './one_cell';
+import { getFirstDayOfMonth, getLastDay } from './fn';
 import './calendar.css';
 
 export class Calendar extends Component {
@@ -24,24 +26,24 @@ export class Calendar extends Component {
 		const j = 1; // это счетчик недель, которые выводятся в календарь
 		let dayCounter = 1;
 		let dayCounterAfter = 1;
-		let str_out_week = '';
+		let str_out_week = [];
 
 		while (j < 7) {
-			let str_out = '';
-			for (const i = 1; i < 8; i++) {
+			let str_out = [];
+			for (let i = 1; i < 8; i++) {
 				let tmpCellObject = {};
 				if ((firstDay.dayWeek > i && j == 1)) { // если меньше чем 1е число текущего месяца - ячейки для предыдущего месяца
 					const tmpDayMonth = (maximumDaysInPrevMonth + i + 1 - firstDay.dayWeek);
 					tmpCellObject = {
-						className: ' class="not_current"',
+						className: 'not_current',
 						dataFullDate: (tmpDayMonth + '.' + (month === 0 ? 12 : month) + '.' + (month === 0 ? yearToOperate - 1 : yearToOperate)),
-						dataDaymonth: tmpDayMonth,
+						dataDayMonth: tmpDayMonth,
 					};
 				} else if (dayCounter > firstDay.maxDays) { // ячейки для следующего месяца
 					tmpCellObject = {
-						className: ' class="not_current"',
+						className: 'not_current',
 						dataFullDate: (dayCounterAfter + '.' + (month === 11 ? 1 : month + 2) + '.' + (month == 11 ? yearToOperate + 1 : yearToOperate)),
-						dataDaymonth: dayCounterAfter++,
+						dataDayMonth: dayCounterAfter++,
 					};
 
 				} else { // ЯЧЕЙКИ для ТЕКУЩЕГО МЕСЯЦА
@@ -49,22 +51,24 @@ export class Calendar extends Component {
 					const currrentDt = new Date();
 
 					if (yearToOperate == currrentDt.getFullYear() && monthToOperate == currrentDt.getMonth()) {
-						todayClass = dayCounter == dayMonth ? ' class="today"' : '';
+						todayClass = dayCounter == dayMonth ? 'today' : '';
 					}
 
 					tmpCellObject = {
 						className: todayClass,
 						dataFullDate: (dayCounter + '.' + (month + 1) + '.' + yearToOperate),
-						dataDaymonth: dayCounter++,
+						dataDayMonth: dayCounter++,
 					};
 				}
-				str_out += buildOneCell(tmpCellObject);
+				str_out.push(<CalendarCell
+					{ ...tmpCellObject }
+				/>);
 			}
-			str_out_week += '<tr>' + str_out + '</tr>';
+			str_out_week.push(<tr key={ j }> { str_out }</tr>);
 			j++;
 		}
 		// printMonthHeader(yearToOperate, monthToOperate);
-		document.getElementById('calendar_table').children[1].innerHTML = str_out_week;
+		// document.getElementById('calendar_table').children[1].innerHTML = str_out_week;
 	}
 
 	render() {
