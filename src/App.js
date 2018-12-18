@@ -51,6 +51,10 @@ class App extends Component {
 		}),
 		);
 	};
+	handleClearList = () => {
+		console.log(' handleClearList')
+			this.setState({ list: [] });
+	};
 
   render() {
   	const ms = '';
@@ -69,6 +73,7 @@ class App extends Component {
 						<TaskList
 							dataList={ this.state.list }
 							handleDelete={ this.handleDeleteItem }
+							handleClearList={ this.handleClearList }
 						/>
 			    </div>
 		    </div>
