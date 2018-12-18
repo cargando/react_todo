@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TaskForm } from './components/task_form';
 import { TaskList } from './components/task_list';
+import {Calendar} from "./components/calendar";
 
 const msItems = [
 	{
@@ -75,6 +76,11 @@ class App extends Component {
 							handleDelete={ this.handleDeleteItem }
 							handleClearList={ this.handleClearList }
 						/>
+			    </div>
+			    <div className='row'>
+				    <div className='col-md-12'>
+					    <Calendar />
+				    </div>
 			    </div>
 		    </div>
 	    </React.Fragment>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import './calendar.css';
 
 export class Calendar extends Component {
 	static propTypes = {
@@ -10,18 +11,20 @@ export class Calendar extends Component {
 		super(props, context);
 	}
 
-
-
 		render() {
 			return (
-				<div id='calendar' className='micalendar' style='display:none'>
+				<div id='calendar' className='micalendar' style={ { display: 'block' } }>
 					<div className='header_wrap'>
 						<div className='header'>
 							<p id='monthHeader'>Month name</p>
 						</div>
 						<div className='arrows'>
-							<div id='prevButton' className='arrows_left'><i className='fa fa-angle-left'></i></div>
-							<div id='nextButton' className='arrows_right'><i className='fa fa-angle-right'></i></div>
+							<div id='prevButton' className='arrows_left'>
+								<i className='fa fa-angle-left' />
+							</div>
+							<div id='nextButton' className='arrows_right'>
+								<i className='fa fa-angle-right' />
+							</div>
 						</div>
 					</div>
 					<table id='calendar_table'>
@@ -41,8 +44,12 @@ export class Calendar extends Component {
 					</table>
 					<hr />
 						<div className='btn-group'>
-							<input type='button' onClick='hideCalendar(event)' value='Отмена'
-							       className='btn btn-sm btn-outline-secondary' />
+							<input
+								type='button'
+								onClick={ null  /*'hideCalendar(event)'*/ }
+								value='Отмена'
+				        className='btn btn-sm btn-outline-secondary'
+							/>
 						</div>
 				</div>);
 		}
