@@ -33,9 +33,9 @@ export const clearErr = (thisObj, box = false) => {
 };
 
 /* добавить ошибку в стек ошибок в state */
-export const fireErr = (thisObj, box, message) => {
+export const fireErr = (thisObj, newBox) => {
 	//console.log('FIREERROR: ', message, box, thisObj);
-	const errBox = Object.assign({}, thisObj.state.errBox, insertErrInBox(box, message));
+	const errBox = Object.assign({}, thisObj.state.errBox, newBox);
 
 	thisObj.setState({
 		errBox,

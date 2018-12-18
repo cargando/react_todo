@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TaskNameInput from '../form/task_name_input';
 import UrgentInput from '../form/urgent_input';
 import Button from '../form/button';
-import { clearErr, fireErr, rnd } from '../../lib/fn';
+import { clearErr, fireErr, rnd,insertErrInBox } from '../../lib/fn';
 
 export class TaskForm extends Component {
 	static propTypes = {
@@ -36,16 +36,24 @@ export class TaskForm extends Component {
 	// fireErr(this, 'поле', 'сообщение об ошибке')
 		const { taskName, remindDt, urgent = false } = this.state.data;
 		let notSuccessValues = false;
+		const errBox = {};
 
 		if (!taskName  || !taskName.length) {
-			fireErr(this, 'taskName', 'Это поле является обязательным для ввода');
+			console.log('IN Add Local NAME');
+			//fireErr(this, 'taskName', 'Это поле является обязательным для ввода');
+			errBox.taskName = 'Это поле является обязательным для ввода';
+
 			notSuccessValues = true;
 		}
 		if (!remindDt  || !remindDt.length) {
-			fireErr(this, 'remindDt', 'Это поле является обязательным для ввода');
+			//fireErr(this, 'remindDt', 'Это поле является обязательным для ввода');
+			errBox.remindDt = 'Это поле является обязательным для ввода';
+
 			notSuccessValues = true;
 		}
+		console.log('IN Add Local', notSuccessValues);
 		if (notSuccessValues) {
+			fireErr(this, errBox);
 			return false;
 		}
 
@@ -83,15 +91,17 @@ export class TaskForm extends Component {
 						onChange={ this.handleChange }
 						label='Введите название задачи'
 						errHint={ this.state.errBox.taskName || 'Введите название задачи для напоминания' }
+						errState={ !!this.state.errBox.taskName }
 					/>
 					<TaskNameInput
 						value={ this.state.data.remindDt || '' }
 						name='remindDt'
 						placeholder='Напомнить'
+						calendarClick={ this.calendarClick }
 						onChange={ null }
 						label='Когда напомнить'
-						errHint='Введите дату и время напоминания'
-						calendarClick={ this.calendarClick }
+						errHint={ this.state.errBox.remindDt || 'Введите дату и время напоминания' }
+						errState={ !!this.state.errBox.remindDt }
 					/>
 					<UrgentInput
 						name='urgent'
