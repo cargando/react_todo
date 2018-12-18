@@ -45,6 +45,7 @@ export class TaskForm extends Component {
 
 			notSuccessValues = true;
 		}
+		console.log('IN Add Local NAME', remindDt );
 		if (!remindDt  || !remindDt.length) {
 			//fireErr(this, 'remindDt', 'Это поле является обязательным для ввода');
 			errBox.remindDt = 'Это поле является обязательным для ввода';
@@ -82,10 +83,12 @@ export class TaskForm extends Component {
 	};
 
 	render() {
+		const tmp= this.state.data.taskName || '';
+		console.log('RND = ', this.state.data, tmp);
 		return (
 			<div className='col-md-6'>
 					<TaskNameInput
-						value={ this.state.data.taskName || '' }
+						value={ tmp  }
 						name='taskName'
 						placeholder='Название задачи'
 						onChange={ this.handleChange }
@@ -98,7 +101,7 @@ export class TaskForm extends Component {
 						name='remindDt'
 						placeholder='Напомнить'
 						calendarClick={ this.calendarClick }
-						onChange={ null }
+						onChange={ this.handleChange  }
 						label='Когда напомнить'
 						errHint={ this.state.errBox.remindDt || 'Введите дату и время напоминания' }
 						errState={ !!this.state.errBox.remindDt }

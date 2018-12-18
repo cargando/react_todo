@@ -35,9 +35,12 @@ class App extends Component {
 		// const list = this.state.list.slice();
 		// list.push(newItem);
 		// this.setState({ list });
-		this.setState(prevState => ({
-			list: prevState.list.push(newItem),
-		}));
+		this.setState(prevState => {
+			prevState.list.push(newItem);
+			return ({
+				list: prevState.list,
+			});
+		});
 	};
 
 	handleDeleteItem = (id) => {

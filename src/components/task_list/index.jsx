@@ -17,6 +17,10 @@ export class TaskList extends Component {
 		}
 	}
 
+	componentWillReceiveProps(nextProps) {
+		console.log('nextProps  = ', nextProps);
+	}
+
 	handleDelete = (id) => {
 		this.props.handleDelete(id);
 	};
