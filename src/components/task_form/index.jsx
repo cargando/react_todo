@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TaskNameInput from '../form/task_name_input';
 import UrgentInput from '../form/urgent_input';
 import Button from '../form/button';
+import { clearErr, fireErr, rnd } from '../../lib/fn';
 
 export class TaskForm extends Component {
 	static propTypes = {
@@ -14,7 +15,8 @@ export class TaskForm extends Component {
 
 		this.state = {
 			data: {},
-			errState: false,
+			errState: false, // флаг который указывает о наличии ошибки в компоненте
+			errBox: {}, // объект с полями, который хранит ошибки для полей формы
 		}
 	}
 
@@ -31,7 +33,40 @@ export class TaskForm extends Component {
 		//  если что-то введено неверно, тогда вывод ошибки в консоль
 		// если все ОК, тогда формируем объект {...} и передаем его в this.props.handleAdd(...);
 		// ресет компонента формы (т.е. удаление всех данных из инпутов)
+	// fireErr(this, 'поле', 'сообщение об ошибке')
+		const { taskName, remindDt, urgent = false } = this.state.data;
+		let notSuccessValues = false;
+
+		if (!taskName  || !taskName.length) {
+			fireErr(this, 'taskName', 'Это поле является обязательным для ввода');
+			notSuccessValues = true;
+		}
+		if (!remindDt  || !remindDt.length) {
+			fireErr(this, 'remindDt', 'Это поле является обязательным для ввода');
+			notSuccessValues = true;
+		}
+		if (notSuccessValues) {
+			return false;
+		}
+
+		this.props.handleAdd(	{
+			id: rnd(0, 1000000),
+			title: taskName,
+			date: remindDt,
+			urgent: urgent,
+		});
+
+		this.handleClearForm();
 	};
+
+	handleClearForm = () => {
+		clearErr(this);
+		this.setState({ data: {} });
+	}
+
+	handleClickAdd = (e) => {
+		this.handleAddLocal();
+	}
 
 	calendarClick = (e) => {
 		console.log(e);
@@ -47,7 +82,7 @@ export class TaskForm extends Component {
 						placeholder='Название задачи'
 						onChange={ this.handleChange }
 						label='Введите название задачи'
-						errHint='Введите название задачи для напоминания'
+						errHint={ this.state.errBox.taskName || 'Введите название задачи для напоминания' }
 					/>
 					<TaskNameInput
 						value={ this.state.data.remindDt || '' }
@@ -71,7 +106,7 @@ export class TaskForm extends Component {
 					/>
 					<Button
 						label='Clear Form'
-						onclick={ this.handleClickClear }
+						onclick={ this.handleClearForm }
 					/>
 			</div>
 		);

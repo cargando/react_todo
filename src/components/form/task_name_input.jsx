@@ -20,9 +20,15 @@ import CalendarBtn from './calendar_btn';
 		label,
 		errHint,
 		calendarClick,
+		errState,
 	} = props;
 
-	const hintTag = errHint && (<small id={ `${ name }Help` } className='form-text text-muted'>{ errHint }</small>);
+	const hintTag = errHint && (
+		<small
+			id={ `${ name }Help` }
+			className={ `form-text text-${ errState ? 'danger' : 'muted' }` }
+    >{ errHint }
+    </small>);
 	// const labelTag = label !== null ? (<label htmlFor='taskData'>{ label }</label>) : null;
 	const handleCalendar = (typeof calendarClick === 'function') && calendarClick;
 
@@ -64,5 +70,6 @@ TaskNameInput.propTypes =  {
 	readOnly: PropTypes.bool, //
 	label: PropTypes.string, // текст для тега label
 	errHint: PropTypes.string, // текст для подсказки под инпутом
+	errState: PropTypes.bool, // флаг состояния ощибки, если тру, тогда errHint красим в красный цвет
 	calendarClick: PropTypes.func, // обработчик события клик по календарю
 };
