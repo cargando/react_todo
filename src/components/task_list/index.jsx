@@ -49,12 +49,14 @@ export class TaskList extends Component {
 						{ list.length ? list : emptyItem }
 					</ul>
 				</div>
-				{ !!(this.props.dataList && this.props.dataList.length)
-					&& <Button
+				{ !!(this.props.dataList && this.props.dataList.length) ?
+					(<div style={ {marginTop: '15px' } }>
+						<Button
 							label='Clear List'
 							className='dark'
 							onclick={ this.props.handleClearList }
 						/>
+					</div>) : null
 				}
 			</div>
 		);
