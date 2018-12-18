@@ -22,7 +22,7 @@ import CalendarBtn from './calendar_btn';
 		calendarClick,
 		errState,
 	} = props;
-
+	console.log('INPUT val =', value)
 	const hintTag = errHint && (
 		<small
 			id={ `${ name }Help` }

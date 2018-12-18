@@ -27,6 +27,7 @@ export default class TextInput extends Component {
 		return (
 			<React.Fragment>
 				<input
+					value={ this.props.value }
 					type={ this.props.type }
 					className={ this.props.className }
 					id={ this.props.name }
