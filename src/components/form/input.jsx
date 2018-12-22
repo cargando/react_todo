@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class TextInput extends Component {
+export default class TextInput extends React.Component {
 	static propTypes = {
 		value: PropTypes.string, // значение инпута по умолчанию
 		name: PropTypes.string, // имя компонента
@@ -17,12 +17,12 @@ export default class TextInput extends Component {
 		className: 'form-control',
 		type: 'text',
 	};
-
+/*
 	constructor(props, context) {
 		super(props, context);
 
 	}
-
+*/
 	render() {
 		return (
 			<React.Fragment>

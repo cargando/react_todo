@@ -14,7 +14,7 @@ export class Calendar extends Component {
 	}
 
 
-	buildCalendar(yearToOperate, monthToOperate) { //
+	buildCalendar = (yearToOperate, monthToOperate) => { //
 		const dateToOperate = new Date(yearToOperate, monthToOperate);
 		const year = dateToOperate.getFullYear();
 		const month = dateToOperate.getMonth(); // месяц от 0 до 11, нужно прибавлять 1
@@ -72,6 +72,6 @@ export class Calendar extends Component {
 	}
 
 	render() {
-		return '';
+		return this.buildCalendar();
 	}
 }

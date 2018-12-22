@@ -6,11 +6,11 @@ export class Calendar extends Component {
 	static propTypes = {
 		handleAdd: PropTypes.func, // метод добавления напоминания  в список
 	};
-
+/*
 	constructor(props, context) {
 		super(props, context);
 	}
-
+*/
 		render() {
 			return (
 				<div id='calendar' className='micalendar' style={ { display: 'block' } }>

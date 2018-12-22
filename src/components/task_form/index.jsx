@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TaskNameInput from '../form/task_name_input';
 import UrgentInput from '../form/urgent_input';
 import Button from '../form/button';
-import { clearErr, fireErr, rnd,insertErrInBox } from '../../lib/fn';
+import { clearErr, fireErr, rnd } from '../../lib/fn';
 
 export class TaskForm extends Component {
 	static propTypes = {
