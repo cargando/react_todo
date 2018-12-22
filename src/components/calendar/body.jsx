@@ -24,10 +24,11 @@ export class CalendarBody extends Component {
 		const month = dateToOperate.getMonth(); // месяц от 0 до 11, нужно прибавлять 1
 		const dayMonth = new Date().getDate(); // какое число месяца
 		let dayWeek = dateToOperate.getDay(); // от 0 до 6, причем 0 - это воскресение
-		const maximumDaysInPrevMonth = null; // getLastDay(year, month - 1);
+
+		const maximumDaysInPrevMonth = getLastDay(year, month - 1);
 		dayWeek = dayWeek === 0 ? 7 : dayWeek;
-		const firstDay = null ;// getFirstDayOfMonth(year, month);
-		const j = 1; // это счетчик недель, которые выводятся в календарь
+		const firstDay = getFirstDayOfMonth(year, month);
+		let j = 1; // это счетчик недель, которые выводятся в календарь
 		let dayCounter = 1;
 		let dayCounterAfter = 1;
 		let str_out_week = [];
@@ -65,10 +66,11 @@ export class CalendarBody extends Component {
 					};
 				}
 				str_out.push(<CalendarCell
+					key={ `cell_${ j }_${ i }`}
 					{ ...tmpCellObject }
 				/>);
 			}
-			str_out_week.push(<tr key={ j }> { str_out }</tr>);
+			str_out_week.push(<tr key={ `row_${ j }` }> { str_out }</tr>);
 			j++;
 		}
 		return str_out_week;
