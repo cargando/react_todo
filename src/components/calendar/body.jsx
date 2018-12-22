@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import moment from "moment/moment";
 import CalendarCell  from './one_cell';
 import { getFirstDayOfMonth, getLastDay } from './fn';
 import './calendar.css';
@@ -9,11 +10,14 @@ export class CalendarBody extends Component {
 		yearToOperate: PropTypes.number, // год, которым оперирует календарь
 		monthToOperate: PropTypes.number, // месяц, которым оперирует календарь
 		handleAdd: PropTypes.func, // метод добавления напоминания  в список
+		handleClickArrow: PropTypes.func, // кликнули по стрелкам (смена месяца),
+		// метод родителя, чтобы поменять занчение в стейте
 	};
 
 	constructor(props, context) {
 		super(props, context);
 	}
+
 
 
 	buildCalendar = () => { //

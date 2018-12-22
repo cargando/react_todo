@@ -31,7 +31,7 @@ class App extends Component {
 
 		this.state = {
 			list: msItems,
-			caledarDate: moment(),
+			caledarDate: null,
 			showCalendar: true,
 			errState: false,
 		}
