@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { TaskForm } from './components/task_form';
 import { TaskList } from './components/task_list';
 import {Calendar} from "./components/calendar";
@@ -30,6 +31,8 @@ class App extends Component {
 
 		this.state = {
 			list: msItems,
+			caledarDate: moment(),
+			showCalendar: true,
 			errState: false,
 		}
 	}
@@ -81,7 +84,13 @@ class App extends Component {
 			    </div>
 			    <div className='row'>
 				    <div className='col-md-12'>
-					    <Calendar />
+					    {
+					    	this.state.showCalendar
+						    && <Calendar
+						      yearToOperate={ moment(this.state.caledarDate).year() }
+						      monthToOperate={ moment(this.state.caledarDate).month() }
+						    />
+					    }
 				    </div>
 			    </div>
 		    </div>

@@ -5,22 +5,21 @@ import { CalendarBody } from "./body";
 
 export class Calendar extends Component {
 	static propTypes = {
+		yearToOperate: PropTypes.number, // год, которым оперирует календарь
+		monthToOperate: PropTypes.number, // месяц, которым оперирует календарь
 		handleAdd: PropTypes.func, // метод добавления напоминания  в список
 	};
 
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			todoList: [],
-			formName: 'form1',
-			calendar: 'calendar',
-			showCalendar: false,
 			calendarMonth: new Date(),
 			choosen: null,
 		}
 	}
 
 		render() {
+		console.log('CALENDAR PROPS = ', this.props);
 			return (
 				<div id='calendar' className='micalendar' style={ { display: 'block' } }>
 					<div className='header_wrap'>
@@ -49,7 +48,10 @@ export class Calendar extends Component {
 						</tr>
 						</thead>
 						<tbody>
-						<CalendarBody />
+						<CalendarBody
+							yearToOperate={ this.props.yearToOperate }
+							monthToOperate={ this.props.monthToOperate }
+						/>
 						</tbody>
 					</table>
 					<hr />

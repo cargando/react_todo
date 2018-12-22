@@ -6,6 +6,8 @@ import './calendar.css';
 
 export class CalendarBody extends Component {
 	static propTypes = {
+		yearToOperate: PropTypes.number, // год, которым оперирует календарь
+		monthToOperate: PropTypes.number, // месяц, которым оперирует календарь
 		handleAdd: PropTypes.func, // метод добавления напоминания  в список
 	};
 
@@ -14,15 +16,17 @@ export class CalendarBody extends Component {
 	}
 
 
-	buildCalendar = (yearToOperate, monthToOperate) => { //
+	buildCalendar = () => { //
+		const { yearToOperate, monthToOperate } = this.props;
+
 		const dateToOperate = new Date(yearToOperate, monthToOperate);
 		const year = dateToOperate.getFullYear();
 		const month = dateToOperate.getMonth(); // месяц от 0 до 11, нужно прибавлять 1
 		const dayMonth = new Date().getDate(); // какое число месяца
 		let dayWeek = dateToOperate.getDay(); // от 0 до 6, причем 0 - это воскресение
-		const maximumDaysInPrevMonth = getLastDay(year, month - 1);
+		const maximumDaysInPrevMonth = null; // getLastDay(year, month - 1);
 		dayWeek = dayWeek === 0 ? 7 : dayWeek;
-		const firstDay = getFirstDayOfMonth(year, month);
+		const firstDay = null ;// getFirstDayOfMonth(year, month);
 		const j = 1; // это счетчик недель, которые выводятся в календарь
 		let dayCounter = 1;
 		let dayCounterAfter = 1;
@@ -67,6 +71,7 @@ export class CalendarBody extends Component {
 			str_out_week.push(<tr key={ j }> { str_out }</tr>);
 			j++;
 		}
+		return str_out_week;
 		// printMonthHeader(yearToOperate, monthToOperate);
 		// document.getElementById('calendar_table').children[1].innerHTML = str_out_week;
 	}
