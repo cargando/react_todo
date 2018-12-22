@@ -4,7 +4,7 @@ import CalendarCell  from './one_cell';
 import { getFirstDayOfMonth, getLastDay } from './fn';
 import './calendar.css';
 
-export class Calendar extends Component {
+export class CalendarBody extends Component {
 	static propTypes = {
 		handleAdd: PropTypes.func, // метод добавления напоминания  в список
 	};

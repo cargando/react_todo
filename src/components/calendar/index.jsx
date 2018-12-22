@@ -1,16 +1,25 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './calendar.css';
+import { CalendarBody } from "./body";
 
 export class Calendar extends Component {
 	static propTypes = {
 		handleAdd: PropTypes.func, // метод добавления напоминания  в список
 	};
-/*
+
 	constructor(props, context) {
 		super(props, context);
+		this.state = {
+			todoList: [],
+			formName: 'form1',
+			calendar: 'calendar',
+			showCalendar: false,
+			calendarMonth: new Date(),
+			choosen: null,
+		}
 	}
-*/
+
 		render() {
 			return (
 				<div id='calendar' className='micalendar' style={ { display: 'block' } }>
@@ -40,6 +49,7 @@ export class Calendar extends Component {
 						</tr>
 						</thead>
 						<tbody>
+						<CalendarBody />
 						</tbody>
 					</table>
 					<hr />
