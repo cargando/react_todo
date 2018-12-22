@@ -101,3 +101,206 @@ Page.propTypes = {
 };
 
 <Page page='home' otherProp={ 5555 } />
+
+
+/* 10й - Reaching into a Component - доступ через REF */
+class Input extends Component {
+	focus() {
+		this.el.focus();
+	}
+
+	render() {
+		return (
+			<input
+				ref={ (el) => { this.el = el; } }
+			/>
+		);
+	}
+}
+
+class SignInModal extends Component {
+	componentDidMount() {
+		// Note that when you use ref on a component, it’s a reference to
+		// the component (not the underlying element), so you have access to its methods.
+		this.InputComponent.focus();
+	}
+
+	render() {
+		return (
+			<div>
+				<label>User name:</label>
+				<Input
+					ref={ (comp) => { this.InputComponent = comp; }}
+				/>
+			</div>
+		)
+	}
+}
+
+
+/* 11й -  Lists Components */
+
+const SearchSuggestions = (props) => {
+	// renderSearchSuggestion() behaves as a pseudo SearchSuggestion component
+	// keep it self contained and it should be easy to extract later if needed
+	const renderSearchSuggestion = listItem => (
+		<li key={ listItem.id }> { listItem.name } ({ listItem.age }) </li>
+	);
+
+	return (
+		<ul>
+			{ props.listItems.map(renderSearchSuggestion) }
+		</ul>
+	);
+};
+
+/*
+*  ANTIPATERNS
+*
+* */
+
+/* 1 - Props in Initial State */
+// Bad
+class SampleComponent extends Component {
+	// constructor function (or getInitialState)
+	constructor(props) {
+		super(props);
+		this.state = {
+			flag: false,
+			inputVal: props.inputValue
+		};
+	}
+	render() {
+		return <div>{ this.state.inputVal && <AnotherComponent/>}</div>
+	}
+}
+// Good
+class SampleComponent extends Component {
+	// constructor function (or getInitialState)
+	constructor(props) {
+		super(props);
+		this.state = {
+			flag: false
+		};
+	}
+
+	render() {
+		return <div>{ this.props.inputValue && <AnotherComponent/>}</div>
+	}
+}
+
+/* 2й Refs over findDOMNode() */
+// Before:
+	class MyComponent extends Component {
+		componentDidMount() {
+			findDOMNode(this).scrollIntoView();
+		}
+
+		render() {
+			return <div />
+		}
+	}
+// After
+class MyComponent extends Component {
+	componentDidMount() {
+		this.node.scrollIntoView();
+	}
+
+	render() {
+		return <div ref={ node => this.node = node }/>
+	}
+}
+
+/* 3й - Use Higher order components over Mixins */
+
+// With Mixin
+var WithLink = React.createClass({
+	mixins: [React.addons.LinkedStateMixin],
+	getInitialState: function () {
+		return {message: 'Hello!'};
+	},
+	render: function () {
+		return <input type="text" valueLink={this.linkState('message')}/>;
+	}
+});
+
+// Move logic to a HOC
+var WithLink = React.createClass({
+	getInitialState: function () {
+		return {message: 'Hello!'};
+	},
+	render: function () {
+		return <input type="text" valueLink={LinkState(this,'message')}/>;
+	}
+});
+
+/* 4й setState() in componentWillMount() */
+// BAD
+function componentWillMount() {
+	axios.get(`api/messages`)
+		.then((result) => {
+			const messages = result.data
+			console.log("COMPONENT WILL Mount messages : ", messages);
+			this.setState({
+				messages: [...messages.content]
+			})
+		})
+}
+// GOOD
+function componentDidMount() {
+	axios.get(`api/messages`)
+		.then((result) => {
+			const messages = result.data
+			console.log("COMPONENT WILL Mount messages : ", messages);
+			this.setState({
+				messages: [...messages.content]
+			})
+		})
+}
+
+// 5й Mutating State without setState()
+
+this.state.items.push('lorem'); // - НЕЛЬЗЯ
+
+this.setState((prevState) => ({
+	items: prevState.items.push('lorem') // можно
+}));
+
+// 6й - Using indexes as keys
+// BAD
+todos.map((todo, index) =>
+	<Todo
+		{...todo}
+		key={index}
+	/>
+)
+
+// GOOD
+todos.map((todo) =>
+	<Todo {...todo}
+	      key={todo.id} />
+)
+
+// 6й - Spreading props on DOM elements
+// BAD
+const Sample = () => (<Spread flag={true} className="content"/>);
+const Spread = (props) => (<div {...props}>Test</div>);
+
+// GOOD
+const Sample = () => (<Spread flag={true} domProps={{className: "content"}}/>);
+const Spread = (props) => (<div {...props.domProps}>Test</div>);
+
+
+/*
+*
+*  ПРИНЦИПЫ хорошей архитектуры
+*
+*
+* */
+
+// 1й - Single responsibility - принцип единно-ответственности
+// 2й - Encapsulated - инкапсуляция данных
+// 3й - Composable - композиция/декомпозиция
+// 4й - Reusable - повторное использование компонентов
+// 5й - "Pure" or "Almost-pure"
+// 6й - Meaningful - понятность описания компонента/кода
