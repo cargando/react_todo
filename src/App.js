@@ -26,6 +26,8 @@ class App extends Component {
 	constructor(props, context) {
 		super(props, context);
 
+		this.handleClearList = this.handleClearList.bind(this);
+
 		this.state = {
 			list: msItems,
 			errState: false,
