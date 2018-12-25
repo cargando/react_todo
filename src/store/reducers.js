@@ -2,7 +2,24 @@ import { combineReducers } from 'redux';
 import * as ACT from './action_constants';
 
 const defaultState = {
-	tasks: [],
+	tasks: [
+		{
+			id: 23,
+			title: 'First FirstFirst FirstItem',
+			date: '15.12.2018',
+		},
+		{
+			id: 11,
+			title: 'Seccond  Item',
+			date: '25.12.2018',
+		},
+		{
+			id: 16,
+			title: 'One more Item',
+			date: '31.12.2018',
+			urgent: true,
+		},
+	],
 };
 
 

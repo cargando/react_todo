@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import * as appActions from './store/actions';
@@ -6,33 +7,20 @@ import { TaskForm } from './components/task_form';
 import { TaskList } from './components/task_list';
 import {Calendar} from "./components/calendar";
 
-const msItems = [
-	{
-		id: 23,
-		title: 'First Item',
-		date: '15.12.2018',
-	},
-	{
-		id: 11,
-		title: 'Seccond  Item',
-		date: '25.12.2018',
-	},
-	{
-		id: 16,
-		title: 'One more Item',
-		date: '31.12.2018',
-		urgent: true,
-	},
-];
 
 class App extends Component {
+	static propTypes = {
+		appData: PropTypes.object, // объект со списоком заявок из ридакса
+		actUpdateTaskList: PropTypes.func, // функция - action creator по обновлению списка
+	};
+
 	constructor(props, context) {
 		super(props, context);
 
 		this.handleClearList = this.handleClearList.bind(this);
 
 		this.state = {
-			list: msItems,
+			list: [], // this.props.appData.tasks,
 			caledarDate: null,
 			showCalendar: true,
 			errState: false,
@@ -79,7 +67,7 @@ class App extends Component {
 				      handleAdd={ this.handleAddItem }
 				    />
 						<TaskList
-							dataList={ this.state.list }
+							dataList={ this.props.appData.tasks }
 							handleDelete={ this.handleDeleteItem }
 							handleClearList={ this.handleClearList }
 						/>
