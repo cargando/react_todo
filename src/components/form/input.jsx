@@ -10,6 +10,7 @@ export default class TextInput extends React.Component {
 		placeholder: PropTypes.string, // плейсхолдер (подсказка)
 		ariaDescribedBy: PropTypes.string, // значение для подсказки внизу инпута
 		onChange: PropTypes.func, // функция обработчик события изменения содержимого инпута
+		onClick: PropTypes.func, // функция обработчик события клик по инпуту
 		readOnly: PropTypes.bool, //
 	};
 
@@ -35,6 +36,7 @@ export default class TextInput extends React.Component {
 					aria-describedby={ this.props.ariaDescribedBy }
 					placeholder={ this.props.placeholder }
 					onChange={ this.props.onChange }
+					onClick={ this.props.onClick }
 					readOnly={ this.props.readOnly }
 					autoComplete='off'
 				/>

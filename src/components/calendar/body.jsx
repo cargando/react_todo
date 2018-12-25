@@ -30,7 +30,7 @@ export class CalendarBody extends Component {
 			mm: parseInt(moment.duration(dt1.diff(dt2)).asMonths(), 10),
 			y: parseInt(moment.duration(dt1.diff(dt2)).asYears(), 10),
 		};
-		console.log('comparision = ', !!(!obj.y && !obj.ymm && !obj.d), obj, dt1.format('DD-MM-YYYY'), dt2.format('DD-MM-YYYY'));
+		// console.log('comparision = ', !!(!obj.y && !obj.ymm && !obj.d), obj, dt1.format('DD-MM-YYYY'), dt2.format('DD-MM-YYYY'));
 		return !obj.y && !obj.ymm && !obj.d;
 	};
 

@@ -82,7 +82,10 @@ export class TaskForm extends Component {
 
 	calendarClick = (e) => {
 		const { target } = e;
-		console.log('show calendar target = ', target);
+		console.log('show calendar target = ', target.tagName);
+		if (target.tagName === 'INPUT' && this.state.showCalendar) {
+			return false;
+		}
 		this.setState((prevState) =>
 			({ showCalendar: !prevState.showCalendar })
 		);

@@ -50,6 +50,7 @@ import CalendarBtn from './calendar_btn';
 					placeholder={ placeholder }
 					value={ value }
 					onChange={ onChange }
+					onClick={ calendarClick }
 					readOnly={ readOnly }
 				/>
 			</div>
