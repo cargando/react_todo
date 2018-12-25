@@ -36,6 +36,7 @@ export default class TextInput extends React.Component {
 					placeholder={ this.props.placeholder }
 					onChange={ this.props.onChange }
 					readOnly={ this.props.readOnly }
+					autoComplete='off'
 				/>
 			</React.Fragment>
 		);

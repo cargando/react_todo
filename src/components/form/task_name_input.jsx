@@ -20,6 +20,7 @@ import CalendarBtn from './calendar_btn';
 		label,
 		errHint,
 		calendarClick,
+		children,
 		errState,
 	} = props;
 	console.log('INPUT val =', value)
@@ -53,6 +54,9 @@ import CalendarBtn from './calendar_btn';
 				/>
 			</div>
 			{
+				children
+			}
+			{
 				hintTag
 			}
 		</div>);
@@ -72,4 +76,5 @@ TaskNameInput.propTypes =  {
 	errHint: PropTypes.string, // текст для подсказки под инпутом
 	errState: PropTypes.bool, // флаг состояния ощибки, если тру, тогда errHint красим в красный цвет
 	calendarClick: PropTypes.func, // обработчик события клик по календарю
+	children: PropTypes.object, // компонент - календарь
 };

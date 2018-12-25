@@ -74,14 +74,15 @@ export class TaskForm extends Component {
 	handleClearForm = () => {
 		clearErr(this);
 		this.setState({ data: {} });
-	}
+	};
 
 	handleClickAdd = (e) => {
 		this.handleAddLocal();
-	}
+	};
 
 	calendarClick = (e) => {
-		console.log(e);
+		const { target } = e;
+		console.log('show calendar target = ', target);
 		this.setState((prevState) =>
 			({ showCalendar: !prevState.showCalendar })
 		);
@@ -110,7 +111,14 @@ export class TaskForm extends Component {
 						label='Когда напомнить'
 						errHint={ this.state.errBox.remindDt || 'Введите дату и время напоминания' }
 						errState={ !!this.state.errBox.remindDt }
-					/>
+					>
+				{
+					this.state.showCalendar && (
+						<Calendar />
+					)
+				}
+					</TaskNameInput>
+
 					<UrgentInput
 						name='urgent'
 						label='Отметить как важная'
@@ -126,11 +134,7 @@ export class TaskForm extends Component {
 						label='Clear Form'
 						onclick={ this.handleClearForm }
 					/>
-				{
-					this.state.showCalendar && (
-						<Calendar />
-					)
-				}
+
 			</div>
 		);
 	}

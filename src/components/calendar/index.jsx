@@ -45,7 +45,7 @@ export class Calendar extends Component {
 		this.setState({ ...stateObj });
 	};
 
-		render() {
+		render() { // , top: '38px'
 		console.log('CALENDAR PROPS = ', this.props);
 			return (
 				<div id='calendar' className='micalendar' style={ { display: 'block' } }>

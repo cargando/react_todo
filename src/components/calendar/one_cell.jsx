@@ -16,8 +16,6 @@ const CalendarCell = (props) => {
 	return (<td
 		onClick={ handleClickCell }
 		className={ className }
-		dataFulldate={ dataFullDate }
-		dataDaymonth={ dataDayMonth }
 	>
 		{ cellText === null ? dataDayMonth : cellText }
 	</td>);
