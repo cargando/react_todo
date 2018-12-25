@@ -9,6 +9,7 @@ export class Calendar extends Component {
 	static propTypes = {
 		calendarDate: PropTypes.object, // объект момент, т.е. дата которой оперирует календарь
 		handleAdd: PropTypes.func, // метод добавления напоминания  в список
+		handleUpdateDate: PropTypes.func, // метод обновления даты
 	};
 
 	constructor(props, context) {
@@ -37,6 +38,7 @@ export class Calendar extends Component {
 			}));
 	};
 
+	/* метод замены выбранной даты и отображаемого месяца в календаре */
 	handleClickDate = (newDateToOperate, choosen = false) => {
 		const stateObj = { calendarDate: newDateToOperate };
 		if (choosen) {

@@ -38,7 +38,7 @@ export class CalendarBody extends Component {
 		const { calendarDate } = this.props;
 		const yearToOperate = moment(calendarDate).year();
 		const monthToOperate = moment(calendarDate).month();
-		console.log('NEW VALs = ', yearToOperate, monthToOperate)
+		// console.log('NEW VALs = ', yearToOperate, monthToOperate)
 		const dateToOperate = new Date(yearToOperate, monthToOperate);
 		const year = dateToOperate.getFullYear();
 		const month = dateToOperate.getMonth(); // месяц от 0 до 11, нужно прибавлять 1

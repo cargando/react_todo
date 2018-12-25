@@ -17,6 +17,7 @@ export class TaskForm extends Component {
 
 		this.state = {
 			showCalendar: false,
+			caledarDate: null,
 			data: {},
 			errState: false, // флаг который указывает о наличии ошибки в компоненте
 			errBox: {}, // объект с полями, который хранит ошибки для полей формы
@@ -90,10 +91,15 @@ export class TaskForm extends Component {
 			({ showCalendar: !prevState.showCalendar })
 		);
 	};
+	handleUpdateDate = (newDate) => {
+		this.setState((prevState) => ({
+			data: { ...prevState.data, remindDt: newDate },
+		}))
+	};
 
 	render() {
 		const tmp= this.state.data.taskName || '';
-		console.log('RND = ', this.state.data, tmp);
+		// console.log('RND = ', this.state.data, tmp);
 		return (
 			<div className='col-md-6'>
 					<TaskNameInput
@@ -117,7 +123,9 @@ export class TaskForm extends Component {
 					>
 				{
 					this.state.showCalendar && (
-						<Calendar />
+						<Calendar
+							handleUpdateDate={ this.handleUpdateDate }
+						/>
 					)
 				}
 					</TaskNameInput>
