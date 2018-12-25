@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './calendar.css';
 import { CalendarBody } from "./body";
 import moment from "moment/moment";
+import 'moment/locale/ru';
 
 export class Calendar extends Component {
 	static propTypes = {
@@ -13,25 +14,28 @@ export class Calendar extends Component {
 
 	constructor(props, context) {
 		super(props, context);
+		moment.locale('ru');
+console.log(moment.locales());
 		this.state = {
-			caledarDate: moment(),
-			calendarMonth: new Date(),
+			calendarDate: moment(),
+			calendarChosen: null,
 			choosen: null,
 		}
 	}
 
 	handleRightClick = () => {
 		this.handleClickCalendarArrows('right');
-	}
+	};
 
 	handleLeftClick = () => {
 		this.handleClickCalendarArrows('left');
-	}
+	};
 
 	handleClickCalendarArrows = (arrow) => {
 		// console.log('BEFORE: ', STATE);
-		const curMonth = moment(this.state.caledarDate).month(); // получаем номер месяца: который отображается в календаре
-		const curYear = moment(this.state.caledarDate).year(); // получаем год: который отображается в календаре
+		/*
+		const curMonth = moment(this.state.calendarDate).month(); // получаем номер месяца: который отображается в календаре
+		const curYear = moment(this.state.calendarDate).year(); // получаем год: который отображается в календаре
 		let monthForSate = 0;
 		let yearForState = curYear;
 		if (arrow == 'right') { // если нажали кнопку следующий месяц
@@ -42,13 +46,21 @@ export class Calendar extends Component {
 			yearForState = curMonth === 0 ? yearForState - 1 : yearForState; // если месяц январь, тогда должны год уменьшить
 		}
 		const tmpDt = moment().set({ 'year': yearForState, 'month': monthForSate });
-		//bthis.props.handleClickArrow(tmpDt);
-		this.setState({ caledarDate: tmpDt }, () => {
-			console.log('caledarDate = ', moment(this.state.caledarDate).format('MM-DD-YYYY'))
-		})
-		// STATE.calendarMonth = new Date(yearForState, monthForSate);
-		console.log("yearForState = ", yearForState, ", monthForSate=", monthForSate); //.getAttribute('id')
-		//console.log('AFTER ARROW: ', STATE);
+		*/
+		//console.log('res = ', this.state.calendarDate.subtract(1, 'months'), this.state.calendarDate);
+		// console.log('res2 = ', moment().add('month', 1) );
+		this.setState((prevState) => ({
+				calendarDate: (arrow === 'right') ? moment(prevState.calendarDate,'DD-MM-YYYY').add('month', 1) : moment(prevState.calendarDate,'DD-MM-YYYY').subtract('month', 1),
+			}),
+			() => { console.log('newVal = ', this.state.calendarDate)});
+	};
+
+	handleClickDate = (newDateToOperate, choosen = false) => {
+		const stateObj = { calendarDate: newDateToOperate };
+		if (choosen) {
+			stateObj.calendarChosen = newDateToOperate;
+		}
+		this.setState({ ...stateObj });
 	};
 
 		render() {
@@ -57,7 +69,7 @@ export class Calendar extends Component {
 				<div id='calendar' className='micalendar' style={ { display: 'block' } }>
 					<div className='header_wrap'>
 						<div className='header'>
-							<p id='monthHeader'>Month name</p>
+							<p id='monthHeader'>{ this.state.calendarDate.format('MMMM') }</p>
 						</div>
 						<div className='arrows'>
 							<div onClick={ this.handleLeftClick } className='arrows_left'>
@@ -82,8 +94,9 @@ export class Calendar extends Component {
 						</thead>
 						<tbody>
 						<CalendarBody
-							yearToOperate={ moment(this.state.caledarDate).year() }
-							monthToOperate={ moment(this.state.caledarDate).month() }
+							calendarDate={ this.state.calendarDate }
+							calendarChosen={ this.state.calendarChosen }
+							handleClickDate={ this.handleClickDate }
 						/>
 						</tbody>
 					</table>

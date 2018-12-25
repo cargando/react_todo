@@ -13,14 +13,14 @@ const CalendarCell = (props) => {
 	if (!className && !dataFullDate && !dataDayMonth ) {
 		return <td> &nbsp; </td>;
 	}
-	return <td
+	return (<td
 		onClick={ handleClickCell }
 		className={ className }
 		dataFulldate={ dataFullDate }
 		dataDaymonth={ dataDayMonth }
 	>
 		{ cellText === null ? dataDayMonth : cellText }
-	</td>;
+	</td>);
 };
 
 export default React.memo(CalendarCell);
