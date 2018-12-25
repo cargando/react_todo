@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import * as appActions from './store/actions';
 import { TaskForm } from './components/task_form';
 import { TaskList } from './components/task_list';
 import {Calendar} from "./components/calendar";
@@ -92,10 +94,13 @@ class App extends Component {
     );
   }
 }
-// sdfsdf
-export default App;
 
-/*
+const mapStateToProps = state => ({
+	...state
+});
 
+const mapDispatchToProps = dispatch => ({
+	simpleAction: (payload) => dispatch(appActions.simpleAction(payload))
+});
 
- */
+export default connect(mapStateToProps, mapDispatchToProps)(App);
