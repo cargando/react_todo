@@ -15,11 +15,10 @@ export class Calendar extends Component {
 	constructor(props, context) {
 		super(props, context);
 		moment.locale('ru');
-console.log(moment.locales());
+
 		this.state = {
 			calendarDate: moment(),
 			calendarChosen: null,
-			choosen: null,
 		}
 	}
 
@@ -32,27 +31,11 @@ console.log(moment.locales());
 	};
 
 	handleClickCalendarArrows = (arrow) => {
-		// console.log('BEFORE: ', STATE);
-		/*
-		const curMonth = moment(this.state.calendarDate).month(); // получаем номер месяца: который отображается в календаре
-		const curYear = moment(this.state.calendarDate).year(); // получаем год: который отображается в календаре
-		let monthForSate = 0;
-		let yearForState = curYear;
-		if (arrow == 'right') { // если нажали кнопку следующий месяц
-			monthForSate = curMonth === 11 ? 0 : curMonth + 1; // если месяц декабрь, тогда должны месяц скинуть на январь
-			yearForState = curMonth === 11 ? yearForState + 1 : yearForState; // если месяц декабрь, тогда год увеличиваем на 1
-		} else {
-			monthForSate = curMonth === 0 ? 11 : curMonth - 1; // если месяц январь, тогда должны месяц скинуть на декабрь
-			yearForState = curMonth === 0 ? yearForState - 1 : yearForState; // если месяц январь, тогда должны год уменьшить
-		}
-		const tmpDt = moment().set({ 'year': yearForState, 'month': monthForSate });
-		*/
-		//console.log('res = ', this.state.calendarDate.subtract(1, 'months'), this.state.calendarDate);
-		// console.log('res2 = ', moment().add('month', 1) );
+
 		this.setState((prevState) => ({
-				calendarDate: (arrow === 'right') ? moment(prevState.calendarDate,'DD-MM-YYYY').add('month', 1) : moment(prevState.calendarDate,'DD-MM-YYYY').subtract('month', 1),
-			}),
-			() => { console.log('newVal = ', this.state.calendarDate)});
+				calendarDate: (arrow === 'right') ? moment(prevState.calendarDate,'DD-MM-YYYY').add('month', 1)
+					: moment(prevState.calendarDate,'DD-MM-YYYY').subtract('month', 1),
+			}));
 	};
 
 	handleClickDate = (newDateToOperate, choosen = false) => {
@@ -69,7 +52,7 @@ console.log(moment.locales());
 				<div id='calendar' className='micalendar' style={ { display: 'block' } }>
 					<div className='header_wrap'>
 						<div className='header'>
-							<p id='monthHeader'>{ this.state.calendarDate.format('MMMM') }</p>
+							<p id='monthHeader'>{ this.state.calendarDate.format('MMMM YYYY') }</p>
 						</div>
 						<div className='arrows'>
 							<div onClick={ this.handleLeftClick } className='arrows_left'>
