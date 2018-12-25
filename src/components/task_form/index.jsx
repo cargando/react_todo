@@ -4,6 +4,8 @@ import TaskNameInput from '../form/task_name_input';
 import UrgentInput from '../form/urgent_input';
 import Button from '../form/button';
 import { clearErr, fireErr, rnd } from '../../lib/fn';
+import moment from "moment/moment";
+import {Calendar} from "../calendar";
 
 export class TaskForm extends Component {
 	static propTypes = {
@@ -14,6 +16,7 @@ export class TaskForm extends Component {
 		super(props, context);
 
 		this.state = {
+			showCalendar: false,
 			data: {},
 			errState: false, // флаг который указывает о наличии ошибки в компоненте
 			errBox: {}, // объект с полями, который хранит ошибки для полей формы
@@ -79,7 +82,9 @@ export class TaskForm extends Component {
 
 	calendarClick = (e) => {
 		console.log(e);
-		return null;
+		this.setState((prevState) =>
+			({ showCalendar: !prevState.showCalendar })
+		);
 	};
 
 	render() {
@@ -121,6 +126,11 @@ export class TaskForm extends Component {
 						label='Clear Form'
 						onclick={ this.handleClearForm }
 					/>
+				{
+					this.state.showCalendar && (
+						<Calendar />
+					)
+				}
 			</div>
 		);
 	}

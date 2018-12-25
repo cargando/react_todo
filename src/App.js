@@ -84,13 +84,7 @@ class App extends Component {
 			    </div>
 			    <div className='row'>
 				    <div className='col-md-12'>
-					    {
-					    	this.state.showCalendar
-						    && <Calendar
-						      yearToOperate={ moment(this.state.caledarDate).year() }
-						      monthToOperate={ moment(this.state.caledarDate).month() }
-						    />
-					    }
+
 				    </div>
 			    </div>
 		    </div>

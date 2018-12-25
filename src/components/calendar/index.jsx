@@ -7,8 +7,7 @@ import 'moment/locale/ru';
 
 export class Calendar extends Component {
 	static propTypes = {
-		yearToOperate: PropTypes.number, // год, которым оперирует календарь
-		monthToOperate: PropTypes.number, // месяц, которым оперирует календарь
+		calendarDate: PropTypes.object, // объект момент, т.е. дата которой оперирует календарь
 		handleAdd: PropTypes.func, // метод добавления напоминания  в список
 	};
 
@@ -88,7 +87,7 @@ export class Calendar extends Component {
 							<input
 								type='button'
 								onClick={ null  /*'hideCalendar(event)'*/ }
-								value='Отмена'
+								value='Закрыть'
 				        className='btn btn-sm btn-outline-secondary'
 							/>
 						</div>
