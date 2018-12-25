@@ -100,7 +100,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	simpleAction: (payload) => dispatch(appActions.simpleAction(payload))
+	actUpdateTaskList: (payload) => dispatch(appActions.actUpdateTaskList(payload))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
