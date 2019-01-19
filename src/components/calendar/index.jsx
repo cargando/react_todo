@@ -89,6 +89,14 @@ export class Calendar extends Component {
 							<input
 								type='button'
 								onClick={ null  /*'hideCalendar(event)'*/ }
+								value='Вставить'
+				        className='btn btn-sm btn-outline-primary'
+							/>
+						</div>
+						<div className='btn-group'>
+							<input
+								type='button'
+								onClick={ null  /*'hideCalendar(event)'*/ }
 								value='Закрыть'
 				        className='btn btn-sm btn-outline-secondary'
 							/>

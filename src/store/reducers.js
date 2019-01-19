@@ -5,7 +5,7 @@ const defaultState = {
 	tasks: [
 		{
 			id: 23,
-			title: 'First FirstFirst FirstItem',
+			title: 'First UNO DOS FirstItem',
 			date: '15.12.2018',
 		},
 		{
@@ -24,7 +24,7 @@ const defaultState = {
 
 
 const mainReducer = (state = defaultState, action) => {
-	console.log('IN mainReducer', action)
+	console.log('IN mainReducer', action);
 	switch (action.type) {
 		case ACT.ACT_UPDATE_TASK_LIST:
 			return {

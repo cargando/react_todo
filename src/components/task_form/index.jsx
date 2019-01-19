@@ -1,15 +1,22 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import TaskNameInput from '../form/task_name_input';
 import UrgentInput from '../form/urgent_input';
 import Button from '../form/button';
 import { clearErr, fireErr, rnd } from '../../lib/fn';
 import moment from "moment/moment";
-import {Calendar} from "../calendar";
+import { Calendar } from '../calendar';
+import * as appActions from '../../store/actions';
 
-export class TaskForm extends Component {
+class TaskForm extends Component {
 	static propTypes = {
-		handleAdd: PropTypes.func, // метод добавления напоминания  в список
+		dataList: PropTypes.array, // redux - список задач
+		actUpdateTaskList: PropTypes.func, // redux - обновить весь список с напоминаниями
+	};
+
+	static defaultProps = {
+		dataList: [],
 	};
 
 	constructor(props, context) {
@@ -32,28 +39,20 @@ export class TaskForm extends Component {
 			data: { ...this.state.data, [name]: value },
 		});
 	};
+
 	handleAddLocal = () => {
-		// проверку данных на валидность
-		//  если что-то введено неверно, тогда вывод ошибки в консоль
-		// если все ОК, тогда формируем объект {...} и передаем его в this.props.handleAdd(...);
-		// ресет компонента формы (т.е. удаление всех данных из инпутов)
-	// fireErr(this, 'поле', 'сообщение об ошибке')
 		const { taskName, remindDt, urgent = false } = this.state.data;
 		let notSuccessValues = false;
 		const errBox = {};
 
 		if (!taskName  || !taskName.length) {
 			console.log('IN Add Local NAME');
-			//fireErr(this, 'taskName', 'Это поле является обязательным для ввода');
 			errBox.taskName = 'Это поле является обязательным для ввода';
-
 			notSuccessValues = true;
 		}
 		console.log('IN Add Local NAME', remindDt );
 		if (!remindDt  || !remindDt.length) {
-			//fireErr(this, 'remindDt', 'Это поле является обязательным для ввода');
 			errBox.remindDt = 'Это поле является обязательным для ввода';
-
 			notSuccessValues = true;
 		}
 		console.log('IN Add Local', notSuccessValues);
@@ -62,12 +61,21 @@ export class TaskForm extends Component {
 			return false;
 		}
 
-		this.props.handleAdd(	{
+		/* this.props.handleAdd(	{
+			id: rnd(0, 1000000),
+			title: taskName,
+			date: remindDt,
+			urgent: urgent,
+		}); */
+		const listCopy = this.props.dataList.slice();
+		listCopy.push({
 			id: rnd(0, 1000000),
 			title: taskName,
 			date: remindDt,
 			urgent: urgent,
 		});
+
+		this.props.actUpdateTaskList(listCopy);
 
 		this.handleClearForm();
 	};
@@ -150,3 +158,13 @@ export class TaskForm extends Component {
 		);
 	}
 }
+
+const mapStateToProps = state => ({
+	dataList: state.appData.tasks,
+});
+
+const mapDispatchToProps = dispatch => ({
+	actUpdateTaskList: (payload) => dispatch(appActions.actUpdateTaskList(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);
