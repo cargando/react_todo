@@ -22,6 +22,7 @@ class TaskList extends Component {
 		this.state = {
 			data: {},
 			errState: false,
+			// 
 		}
 	}
 
