@@ -14,6 +14,7 @@ export class CalendarBody extends Component {
 		handleAdd: PropTypes.func, // метод добавления напоминания  в список
 		handleClickArrow: PropTypes.func, // кликнули по стрелкам (смена месяца),
 		handleClickDate: PropTypes.func, // метод родителя, чтобы поменять занчение в стейте
+		handleDoubleClickDate: PropTypes.func, // метод родителя, чтобы поменять занчение в стейте + закрыть календарь
 	};
 
 /*	constructor(props, context) {
@@ -96,10 +97,14 @@ export class CalendarBody extends Component {
 				str_out.push(<CalendarCell
 					key={ `cell_${ j }_${ i }`}
 					handleClickCell={ ()=>{
-
-						console.log('Clicked DT = ', isChoosen, tmpCellDate,  tmpCellDate.isValid());
+						// console.log('Clicked DT = ', isChoosen, tmpCellDate,  tmpCellDate.isValid());
 						this.props.handleClickDate(tmpCellDate, true);
 					} }
+					handleDoubleClickCell={ () => {
+						console.log('Clicked DT = ', isChoosen, tmpCellDate,  tmpCellDate.isValid());
+							this.props.handleDoubleClickDate(tmpCellDate, true);
+						}
+					}
 					{ ...tmpCellObject }
 				/>);
 			} // end of FOR

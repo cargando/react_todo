@@ -7,6 +7,7 @@ const defaultState = {
 			id: 23,
 			title: 'First UNO DOS FirstItem',
 			date: '15.12.2018',
+			archive: true,
 		},
 		{
 			id: 11,

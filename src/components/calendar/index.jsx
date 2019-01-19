@@ -10,6 +10,7 @@ export class Calendar extends Component {
 		calendarDate: PropTypes.object, // объект момент, т.е. дата которой оперирует календарь
 		handleAdd: PropTypes.func, // метод добавления напоминания  в список
 		handleUpdateDate: PropTypes.func, // метод обновления даты
+		handleCloseCalendar: PropTypes.func, // Закрыть календарь
 	};
 
 	constructor(props, context) {
@@ -47,6 +48,23 @@ export class Calendar extends Component {
 		this.setState({ ...stateObj });
 	};
 
+	/* метод - вставить выбранную дату в инпут (поле формы) */
+	handleClickInsertDate = () => {
+			this.props.handleUpdateDate(moment(this.state.calendarChosen).format('DD-MM-YYYY'));
+	}
+
+	/* метод - вставить выбранную дату в инпут (поле формы) */
+	handleDoubleClickDate = (newDateToOperate, choosen = false) => {
+		const stateObj = { calendarDate: newDateToOperate };
+		if (choosen) {
+			stateObj.calendarChosen = newDateToOperate;
+		}
+		this.setState({ ...stateObj }, () => {
+			this.handleClickInsertDate();
+			this.props.handleCloseCalendar();
+		});
+
+	}
 		render() { // , top: '38px'
 		console.log('CALENDAR PROPS = ', this.props);
 			return (
@@ -81,6 +99,7 @@ export class Calendar extends Component {
 							calendarDate={ this.state.calendarDate }
 							calendarChosen={ this.state.calendarChosen }
 							handleClickDate={ this.handleClickDate }
+							handleDoubleClickDate={ this.handleDoubleClickDate }
 						/>
 						</tbody>
 					</table>
@@ -88,17 +107,20 @@ export class Calendar extends Component {
 						<div className='btn-group'>
 							<input
 								type='button'
-								onClick={ null  /*'hideCalendar(event)'*/ }
+								onClick={ this.handleClickInsertDate }
 								value='Вставить'
 				        className='btn btn-sm btn-outline-primary'
+								disabled={ !this.state.calendarChosen }
+								style={ !this.state.calendarChosen ? { cursor: 'not-allowed'} : null }
 							/>
 						</div>
 						<div className='btn-group'>
 							<input
 								type='button'
-								onClick={ null  /*'hideCalendar(event)'*/ }
+								onClick={ this.props.handleCloseCalendar }
 								value='Закрыть'
 				        className='btn btn-sm btn-outline-secondary'
+
 							/>
 						</div>
 				</div>);

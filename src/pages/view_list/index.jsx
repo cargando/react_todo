@@ -1,7 +1,6 @@
 import React from 'react';
 import TaskList from '../../components/task_list';
 
-
 export default (props) => {
 
 	return (

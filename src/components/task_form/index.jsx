@@ -133,6 +133,7 @@ class TaskForm extends Component {
 					this.state.showCalendar && (
 						<Calendar
 							handleUpdateDate={ this.handleUpdateDate }
+							handleCloseCalendar={ () => { this.setState({ showCalendar: false }); } }
 						/>
 					)
 				}

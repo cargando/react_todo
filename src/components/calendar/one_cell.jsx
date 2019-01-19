@@ -7,6 +7,7 @@ const CalendarCell = (props) => {
 		dataDayMonth = null,
 		cellText = null,
 		handleClickCell,
+		handleDoubleClickCell,
 	} = props;
 
 	if (!className && !dataFullDate && !dataDayMonth ) {
@@ -14,6 +15,7 @@ const CalendarCell = (props) => {
 	}
 	return (<td
 		onClick={ handleClickCell }
+		onDoubleClick={ handleDoubleClickCell }
 		className={ className }
 	>
 		{ cellText === null ? dataDayMonth : cellText }

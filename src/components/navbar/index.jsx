@@ -14,7 +14,7 @@ class NavBar extends Component {
 
 		return (
 			<nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-				<Link className='navbar-brand' style={ { marginRight: '20px'} } to={ URL.URL_HOME }><strong>MyToDo</strong></Link>
+				<Link className='navbar-brand' style={ { marginRight: '50px'} } to={ URL.URL_HOME }><strong>MyToDo</strong></Link>
 				<button className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent'
 				        aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 					<span className='navbar-toggler-icon'></span>
@@ -26,9 +26,7 @@ class NavBar extends Component {
 							<Link className='navbar-brand' to={ URL.URL_ADD_ITEM }>Create</Link>
 							<Link className='navbar-brand' to={ URL.URL_VIEW_LIST }>View All</Link>
 						</li>
-
 					</ul>
-
 				</div>
 			</nav>);
 
