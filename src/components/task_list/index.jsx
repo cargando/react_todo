@@ -10,6 +10,7 @@ class TaskList extends Component {
 		dataList: PropTypes.array, // redux - список задач
 		actUpdateTaskList: PropTypes.func, // redux - обновить весь список с напоминаниями
 		actClearTaskList: PropTypes.func, // redux - очистить весь список
+		archive: PropTypes.bool, // вывести элементы из архива
 	};
 
 	static defaultProps = {
@@ -22,7 +23,7 @@ class TaskList extends Component {
 		this.state = {
 			data: {},
 			errState: false,
-			// 
+			//
 		}
 	}
 
@@ -35,7 +36,8 @@ class TaskList extends Component {
 	};
 
 	renderItem = (item) => {
-		return (<ListItem
+
+		return (item.archive === this.props.archive) && (<ListItem
 			key={ item.id  }
 			id={ item.id }
 			title={ item.title }

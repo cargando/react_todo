@@ -24,7 +24,9 @@ class NavBar extends Component {
 					<ul className='navbar-nav mr-auto'>
 						<li className='nav-item'>
 							<Link className='navbar-brand' to={ URL.URL_ADD_ITEM }>Create</Link>
-							<Link className='navbar-brand' to={ URL.URL_VIEW_LIST }>View All</Link>
+							<Link className='navbar-brand' to={ URL.URL_VIEW_LIST }>Todo</Link>
+							<Link className='navbar-brand' to={ URL.URL_ARCHIVE }>Archive List</Link>
+
 						</li>
 					</ul>
 				</div>
