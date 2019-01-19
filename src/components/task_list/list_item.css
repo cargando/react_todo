@@ -4,7 +4,13 @@
 	right: 20px;
 
 }
-.delete_ico:hover {
+.delete_ico:hover, .archive_ico:hover {
 	color: #990000;
 	cursor: pointer;
+}
+
+.archive_ico {
+	position: absolute;
+	top: 15px;
+	right: 40px;
 }

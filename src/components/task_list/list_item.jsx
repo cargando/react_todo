@@ -6,9 +6,11 @@ export const ListItem = (props) => {
 	const {
 		id,
 		title,
+		archive = false,
 		date = null,
 		urgent = null,
-		onclick = null,
+		deleteClick = null,
+		archiveClick = null,
 	} = props;
 	const simpleItem = (!date && !urgent);
 
@@ -31,7 +33,10 @@ export const ListItem = (props) => {
 			{ urgentTag }
 			{ title }
 			{ dateTag }
-			<span className='delete_ico' onClick={ () => { onclick(id) } }>
+			<span className='archive_ico' onClick={ () => { archiveClick(id) } }>
+				<i className={ `fa fa-${ !archive ? 'archive' : 'undo' }`} />
+			</span>
+			<span className='delete_ico' onClick={ () => { deleteClick(id) } }>
 				<i className='fa fa-times' />
 			</span>
 		</li>);

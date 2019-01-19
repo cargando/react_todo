@@ -32,27 +32,53 @@ class TaskList extends Component {
 	}
 
 	handleDelete = (id) => {
-		this.props.actUpdateTaskList(this.props.dataList.filter((item) => item.id !== id));
+		this.props.actUpdateTaskList(
+			this.props.dataList.filter((item) => item.id !== id)
+		);
 	};
 
-	renderItem = (item) => {
+	handleArchiveItem = (id) => {
+		this.props.actUpdateTaskList(
+			this.props.dataList.map((item) => {
+				if (item.id === id) {
+					const copy = Object.assign({}, item);
+					copy.archive = !copy.archive;
+					return copy;
+				}
+				return item;
+			}) // end of MAP
+		); // end of actUpdateTaskList
+	};
 
-		return (item.archive === this.props.archive) && (<ListItem
+	renderItem = (item) => (<ListItem
 			key={ item.id  }
 			id={ item.id }
+			archive={ item.archive }
 			title={ item.title }
 			date={ item.date }
 			urgent={ item.urgent }
-			onclick={ this.handleDelete }
+			deleteClick={ this.handleDelete }
+			archiveClick={ this.handleArchiveItem }
 	/>);
-	};
 
 	clearList = () => {
 		this.props.actClearTaskList();
 	};
+	countItems = () => {
+			const cnt = 0;
+			this.props.dataList.map((item) => {
+				if (!!item.archive === !!this.props.archive) {
+;
+				}
+			});
+	};
 
 	render() {
-		const list = this.props.dataList.map(this.renderItem);
+		const list = this.props.dataList
+			.filter((item) => (!!item.archive === !!this.props.archive))
+			.map(this.renderItem);
+
+		console.log("list.len = ", list.length);
 		const emptyItem = this.renderItem({ title: 'Список пуст' });
 
 		return (
